@@ -1,6 +1,9 @@
 export default defineContentScript({
-  matches: ['*://*.google.com/*'],
-  main() {
-    console.log('Hello content.');
+  matches: ["https://*.visualstudio.com/**", "https://dev.azure.com/**"],
+
+  async main() {
+    await injectScript("/monaco-vue-highlighter.js", {
+      keepInDom: true,
+    });
   },
 });
