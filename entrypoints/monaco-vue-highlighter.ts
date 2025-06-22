@@ -1,6 +1,8 @@
 export default defineUnlistedScript({
   main() {
     onMonacoInitialized((monaco) => {
+      postWindowMessage("highlighterInitialized", {});
+
       const { editor } = monaco;
 
       const setVueModelFormatting = (model: MonacoModel) => {
@@ -9,6 +11,9 @@ export default defineUnlistedScript({
 
           if (language === "plaintext") {
             editor.setModelLanguage(model, "html");
+            postWindowMessage("fileHighlighted", {
+              uri: model.uri.path,
+            });
           }
         }
       };

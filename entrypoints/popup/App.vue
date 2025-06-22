@@ -1,30 +1,43 @@
 <script lang="ts" setup>
-import HelloWorld from '@/components/HelloWorld.vue';
+const highlightedFiles = ref<string[]>();
+
+async function fetchHighlightedFiles() {
+  const activeTab = await browser.tabs.query({
+    active: true,
+    currentWindow: true,
+  });
+
+  const activeTabId = activeTab[0]?.id?.toString();
+
+  if (!activeTabId) {
+    console.warn("No active tab found");
+    return;
+  }
+
+  const highlightedFilesStr = await highlightedFilesStorage.getValue();
+
+  highlightedFiles.value = highlightedFilesStr?.[activeTabId];
+}
+fetchHighlightedFiles();
 </script>
 
 <template>
-  <div>
-    <a href="https://wxt.dev" target="_blank">
-      <img src="/wxt.svg" class="logo" alt="WXT logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="@/assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="WXT + Vue" />
+  <h2>Azure Devops Vue Highlighter</h2>
+  <template v-if="!highlightedFiles">
+    <p>Highlighter not initialized...</p>
+  </template>
+  <template v-else-if="highlightedFiles.length === 0">
+    <p>No highlighted files</p>
+  </template>
+  <template v-else>
+    <p>Highlighted files:</p>
+    <ul>
+      <li
+        v-for="(filename, index) in highlightedFiles.slice(0, 10)"
+        :key="index"
+      >
+        <code>{{ filename }}</code>
+      </li>
+    </ul>
+  </template>
 </template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #54bc4ae0);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
