@@ -1,7 +1,7 @@
-# WXT + Vue 3
+# Azure Devops Vue Highlighter
 
-This template should help get you started developing with Vue 3 in WXT.
+Simple browser extension that adds syntax highlighting for [Vue.js SFC](https://vuejs.org/guide/scaling-up/sfc) in Azure Devops built using [WXT framework](https://wxt.dev/)
 
-## Recommended IDE Setup
+## How it works
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar).
+Because Vue SFCs (*.vue files) are basically an extension of the HTML syntax, they can be simply highlighted as HTML. This extension hijacks the Azure Devops monaco editor and automatically sets the file type of all visited *.vue files from `plaintext` to `html`.
