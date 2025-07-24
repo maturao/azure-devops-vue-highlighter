@@ -22,7 +22,14 @@ fetchHighlightedFiles();
 </script>
 
 <template>
-  <h2>Azure Devops Vue Highlighter</h2>
+  <div style="display: flex; align-items: center; flex-direction: column">
+    <img
+      src="@/assets/icon.svg"
+      alt="Azure Devops Vue Highlighter Icon"
+      style="max-height: 5em"
+    />
+    <h2>Azure Devops Vue Highlighter</h2>
+  </div>
   <template v-if="!highlightedFiles">
     <p>Highlighter not initialized...</p>
   </template>
@@ -30,14 +37,13 @@ fetchHighlightedFiles();
     <p>No highlighted files</p>
   </template>
   <template v-else>
-    <p>Highlighted files:</p>
-    <ul>
-      <li
-        v-for="(filename, index) in highlightedFiles.slice(0, 10)"
-        :key="index"
-      >
-        <code>{{ filename }}</code>
-      </li>
-    </ul>
+    <p>Recent highlighted files:</p>
+    <template
+      v-for="(filename, index) in highlightedFiles.slice(0, 10)"
+      :key="index"
+    >
+      <code>{{ getPathBasename(filename) }}</code>
+      <br />
+    </template>
   </template>
 </template>
