@@ -9,6 +9,6 @@ export default defineConfig({
   },
   autoIcons: {
     baseIconPath: "assets/icon.svg",
-    grayscaleOnDevelopment: false,
+    developmentIndicator: "overlay",
   },
 });
