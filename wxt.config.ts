@@ -6,6 +6,12 @@ export default defineConfig({
   manifest: {
     name: "Azure DevOps Vue Highlighter",
     permissions: ["tabs", "storage"],
+    web_accessible_resources: [
+      {
+        matches: ["https://dev.azure.com/*", "https://*.visualstudio.com/*"],
+        resources: ["/monaco-vue-highlighter.js"],
+      },
+    ],
   },
   autoIcons: {
     baseIconPath: "assets/icon.svg",
